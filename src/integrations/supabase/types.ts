@@ -14,6 +14,201 @@ export type Database = {
   }
   public: {
     Tables: {
+      activities: {
+        Row: {
+          action: string
+          created_at: string
+          description: string
+          entity_id: string | null
+          entity_type: string | null
+          id: string
+          mess_id: string
+          user_id: string
+        }
+        Insert: {
+          action: string
+          created_at?: string
+          description: string
+          entity_id?: string | null
+          entity_type?: string | null
+          id?: string
+          mess_id: string
+          user_id: string
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          description?: string
+          entity_id?: string | null
+          entity_type?: string | null
+          id?: string
+          mess_id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      expenses: {
+        Row: {
+          added_by: string
+          amount: number
+          category: string
+          created_at: string
+          description: string | null
+          expense_date: string
+          id: string
+          mess_id: string
+          receipt_url: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          added_by: string
+          amount: number
+          category?: string
+          created_at?: string
+          description?: string | null
+          expense_date?: string
+          id?: string
+          mess_id: string
+          receipt_url?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          added_by?: string
+          amount?: number
+          category?: string
+          created_at?: string
+          description?: string | null
+          expense_date?: string
+          id?: string
+          mess_id?: string
+          receipt_url?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      inventory_items: {
+        Row: {
+          category: string
+          cost_per_unit: number
+          created_at: string
+          current_stock: number
+          id: string
+          last_purchased: string | null
+          mess_id: string
+          minimum_stock: number
+          name: string
+          supplier: string | null
+          unit: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string
+          cost_per_unit?: number
+          created_at?: string
+          current_stock?: number
+          id?: string
+          last_purchased?: string | null
+          mess_id: string
+          minimum_stock?: number
+          name: string
+          supplier?: string | null
+          unit?: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          cost_per_unit?: number
+          created_at?: string
+          current_stock?: number
+          id?: string
+          last_purchased?: string | null
+          mess_id?: string
+          minimum_stock?: number
+          name?: string
+          supplier?: string | null
+          unit?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      member_payments: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          member_id: string
+          mess_id: string
+          notes: string | null
+          payment_date: string
+          payment_method: string | null
+          reference_number: string | null
+          updated_at: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          id?: string
+          member_id: string
+          mess_id: string
+          notes?: string | null
+          payment_date?: string
+          payment_method?: string | null
+          reference_number?: string | null
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          member_id?: string
+          mess_id?: string
+          notes?: string | null
+          payment_date?: string
+          payment_method?: string | null
+          reference_number?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      menu_items: {
+        Row: {
+          category: string
+          created_at: string
+          day_of_week: number
+          description: string | null
+          id: string
+          is_active: boolean
+          mess_id: string
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          day_of_week: number
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          mess_id: string
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          day_of_week?: number
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          mess_id?: string
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       mess: {
         Row: {
           address: string | null

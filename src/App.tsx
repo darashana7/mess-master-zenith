@@ -7,6 +7,9 @@ import { AuthProvider, useAuth } from "@/hooks/useAuth";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
+import MenuManagement from "./pages/MenuManagement";
+import InventoryManagement from "./pages/InventoryManagement";
+import FinancialManagement from "./pages/FinancialManagement";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -60,6 +63,21 @@ const App = () => (
             <Route path="/dashboard" element={
               <ProtectedRoute>
                 <Dashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/menu" element={
+              <ProtectedRoute>
+                <MenuManagement />
+              </ProtectedRoute>
+            } />
+            <Route path="/inventory" element={
+              <ProtectedRoute>
+                <InventoryManagement />
+              </ProtectedRoute>
+            } />
+            <Route path="/finances" element={
+              <ProtectedRoute>
+                <FinancialManagement />
               </ProtectedRoute>
             } />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
