@@ -10,6 +10,7 @@ import Dashboard from "./pages/Dashboard";
 import MenuManagement from "./pages/MenuManagement";
 import InventoryManagement from "./pages/InventoryManagement";
 import FinancialManagement from "./pages/FinancialManagement";
+import Reports from "./pages/Reports";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -78,6 +79,11 @@ const App = () => (
             <Route path="/finances" element={
               <ProtectedRoute>
                 <FinancialManagement />
+              </ProtectedRoute>
+            } />
+            <Route path="/reports" element={
+              <ProtectedRoute>
+                <Reports />
               </ProtectedRoute>
             } />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
