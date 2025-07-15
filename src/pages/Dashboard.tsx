@@ -8,6 +8,7 @@ import { ProfileSetup } from '@/components/ProfileSetup';
 import { MessCreate } from '@/components/MessCreate';
 import { MessJoin } from '@/components/MessJoin';
 import { useToast } from '@/hooks/use-toast';
+import NotificationCenter from '@/components/NotificationCenter';
 import { ChefHat, Users, Calendar, DollarSign, Package, TrendingUp, Plus, Settings } from 'lucide-react';
 
 interface Profile {
@@ -157,6 +158,15 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="flex items-center gap-4">
+            <NotificationCenter />
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => window.location.href = '/settings'}
+              className="relative"
+            >
+              <Settings className="h-5 w-5" />
+            </Button>
             <div className="text-right">
               <p className="text-sm font-medium">{profile.full_name}</p>
               <div className="flex items-center gap-2">
