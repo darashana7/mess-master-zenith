@@ -146,43 +146,9 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <ChefHat className="h-8 w-8 text-primary" />
-            <div>
-              <h1 className="text-xl font-bold">{mess?.name || 'Mess Management'}</h1>
-              <p className="text-sm text-muted-foreground">Management Dashboard</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-4">
-            <NotificationCenter />
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => window.location.href = '/settings'}
-              className="relative"
-            >
-              <Settings className="h-5 w-5" />
-            </Button>
-            <div className="text-right">
-              <p className="text-sm font-medium">{profile.full_name}</p>
-              <div className="flex items-center gap-2">
-                <Badge variant="secondary" className="text-xs">{profile.role}</Badge>
-                <span className="text-xs text-muted-foreground">{user?.email}</span>
-              </div>
-            </div>
-            <Button variant="outline" onClick={signOut}>
-              Sign Out
-            </Button>
-          </div>
-        </div>
-      </header>
-
+    <div className="min-h-full bg-background">
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-6 md:px-6 lg:px-8">
         {/* Mess Status */}
         {!mess ? (
           <Card className="mb-8 border-dashed border-2">
@@ -224,7 +190,7 @@ const Dashboard = () => {
 
         {/* Stats Grid - Only show if user has a mess */}
         {mess && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6 md:mb-8">
             {stats.map((stat, index) => {
               const Icon = stat.icon;
               return (
@@ -248,7 +214,7 @@ const Dashboard = () => {
         )}
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-6 md:mb-8">
           <Card className="hover:shadow-md transition-shadow cursor-pointer" onClick={() => window.location.href = '/menu'}>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
