@@ -3,7 +3,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Calendar, DollarSign, Package, Users, TrendingUp, Download } from "lucide-react"
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
+import { BarChart, Bar, LineChart, Line, XAxis, YAxis, PieChart, Pie, Cell } from "recharts"
+import { Calendar, DollarSign, Package, Users, TrendingUp, Download, Filter } from "lucide-react"
 import { supabase } from "@/integrations/supabase/client"
 import { useAuth } from "@/hooks/useAuth"
 import { toast } from "sonner"
@@ -223,45 +225,113 @@ export default function Reports() {
 
         <TabsContent value="expenses" className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Interactive Bar Chart for Categories */}
             <Card>
               <CardHeader>
                 <CardTitle>Expenses by Category</CardTitle>
-                <CardDescription>Breakdown of spending by category</CardDescription>
+                <CardDescription>Interactive breakdown of spending by category</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
+                <ChartContainer
+                  config={{
+                    amount: {
+                      label: "Amount (₹)",
+                      color: "hsl(var(--primary))",
+                    },
+                  }}
+                  className="h-[300px]"
+                >
+                  <BarChart data={reportData.expensesByCategory}>
+                    <XAxis dataKey="category" />
+                    <YAxis />
+                    <ChartTooltip content={<ChartTooltipContent />} />
+                    <Bar dataKey="amount" fill="var(--color-amount)" radius={4} />
+                  </BarChart>
+                </ChartContainer>
+                <div className="mt-4 space-y-2">
                   {reportData.expensesByCategory.map((item, index) => (
-                    <div key={index} className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <Badge variant="outline">{item.category}</Badge>
-                      </div>
-                      <div className="font-semibold">₹{item.amount.toLocaleString()}</div>
+                    <div key={index} className="flex items-center justify-between text-sm">
+                      <Badge variant="outline">{item.category}</Badge>
+                      <span className="font-semibold">₹{item.amount.toLocaleString()}</span>
                     </div>
                   ))}
                 </div>
               </CardContent>
             </Card>
 
+            {/* Interactive Line Chart for Monthly Trends */}
             <Card>
               <CardHeader>
-                <CardTitle>Monthly Trends</CardTitle>
-                <CardDescription>Spending trends over time</CardDescription>
+                <CardTitle>Monthly Spending Trends</CardTitle>
+                <CardDescription>Track spending patterns over time</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  {reportData.monthlyExpenses.map((item, index) => (
-                    <div key={index} className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <Calendar className="h-4 w-4 text-muted-foreground" />
-                        <span>{item.month}</span>
-                      </div>
-                      <div className="font-semibold">₹{item.amount.toLocaleString()}</div>
-                    </div>
-                  ))}
-                </div>
+                <ChartContainer
+                  config={{
+                    amount: {
+                      label: "Amount (₹)",
+                      color: "hsl(var(--primary))",
+                    },
+                  }}
+                  className="h-[300px]"
+                >
+                  <LineChart data={reportData.monthlyExpenses}>
+                    <XAxis dataKey="month" />
+                    <YAxis />
+                    <ChartTooltip content={<ChartTooltipContent />} />
+                    <Line 
+                      type="monotone" 
+                      dataKey="amount" 
+                      stroke="var(--color-amount)" 
+                      strokeWidth={3}
+                      dot={{ fill: "var(--color-amount)", strokeWidth: 2, r: 4 }}
+                      activeDot={{ r: 6, stroke: "var(--color-amount)", strokeWidth: 2 }}
+                    />
+                  </LineChart>
+                </ChartContainer>
               </CardContent>
             </Card>
           </div>
+
+          {/* Advanced Analytics */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Expense Distribution Analysis</CardTitle>
+              <CardDescription>Detailed view of spending patterns</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="space-y-2">
+                  <h4 className="font-medium">Highest Category</h4>
+                  <div className="text-2xl font-bold text-primary">
+                    {reportData.expensesByCategory[0]?.category || 'N/A'}
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    ₹{reportData.expensesByCategory[0]?.amount.toLocaleString() || 0}
+                  </p>
+                </div>
+                <div className="space-y-2">
+                  <h4 className="font-medium">Average Monthly</h4>
+                  <div className="text-2xl font-bold text-green-600">
+                    ₹{Math.round(reportData.totalExpenses / Math.max(reportData.monthlyExpenses.length, 1)).toLocaleString()}
+                  </div>
+                  <p className="text-sm text-muted-foreground">Based on data available</p>
+                </div>
+                <div className="space-y-2">
+                  <h4 className="font-medium">Growth Rate</h4>
+                  <div className="text-2xl font-bold text-blue-600">
+                    {reportData.monthlyExpenses.length >= 2 ? 
+                      `${((reportData.monthlyExpenses[reportData.monthlyExpenses.length - 1]?.amount - 
+                          reportData.monthlyExpenses[reportData.monthlyExpenses.length - 2]?.amount) / 
+                          reportData.monthlyExpenses[reportData.monthlyExpenses.length - 2]?.amount * 100).toFixed(1)}%`
+                      : 'N/A'
+                    }
+                  </div>
+                  <p className="text-sm text-muted-foreground">Month over month</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </TabsContent>
 
         <TabsContent value="activities">
