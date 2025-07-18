@@ -8,6 +8,7 @@ import { AppLayout } from "@/layouts/AppLayout";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
+import MemberDashboard from "./pages/MemberDashboard";
 import MenuManagement from "./pages/MenuManagement";
 import InventoryManagement from "./pages/InventoryManagement";
 import FinancialManagement from "./pages/FinancialManagement";
@@ -67,6 +68,11 @@ const App = () => (
               <Route path="/dashboard" element={
                 <ProtectedRoute>
                   <Dashboard />
+                </ProtectedRoute>
+              } />
+              <Route path="/member-dashboard" element={
+                <ProtectedRoute>
+                  <MemberDashboard />
                 </ProtectedRoute>
               } />
               <Route path="/menu" element={

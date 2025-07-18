@@ -32,12 +32,17 @@ interface Profile {
   mess_id: string | null
 }
 
-const items = [
+const adminItems = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
   { title: "Menu Management", url: "/menu", icon: Calendar },
   { title: "Inventory", url: "/inventory", icon: Package },
   { title: "Finances", url: "/finances", icon: DollarSign },
   { title: "Reports", url: "/reports", icon: BarChart3 },
+  { title: "Settings", url: "/settings", icon: Settings },
+]
+
+const memberItems = [
+  { title: "My Dashboard", url: "/member-dashboard", icon: LayoutDashboard },
   { title: "Settings", url: "/settings", icon: Settings },
 ]
 
@@ -73,7 +78,13 @@ export function AppSidebar() {
   }
 
   const isActive = (path: string) => currentPath === path
-  const isExpanded = items.some((item) => isActive(item.url))
+  
+  // Determine navigation items based on user role
+  const navigationItems = profile?.role === 'admin' || profile?.role === 'manager' 
+    ? adminItems 
+    : memberItems
+  
+  const isExpanded = navigationItems.some((item) => isActive(item.url))
 
   const getNavClasses = (active: boolean) =>
     active 
@@ -103,7 +114,7 @@ export function AppSidebar() {
           <SidebarGroupLabel>Navigation</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => {
+              {navigationItems.map((item) => {
                 const Icon = item.icon
                 return (
                   <SidebarMenuItem key={item.title}>
