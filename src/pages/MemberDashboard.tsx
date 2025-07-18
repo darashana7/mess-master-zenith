@@ -184,14 +184,19 @@ const MemberDashboard = () => {
 
   if (!profile?.mess_id) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-background">
         <Card className="w-full max-w-md">
           <CardHeader>
-            <CardTitle>No Mess Found</CardTitle>
-            <CardDescription>You need to join a mess to view this dashboard.</CardDescription>
+            <CardTitle className="flex items-center gap-2">
+              <ChefHat className="h-5 w-5" />
+              No Mess Found
+            </CardTitle>
+            <CardDescription>
+              You need to join a mess to view your dashboard. Please create or join a mess first.
+            </CardDescription>
           </CardHeader>
           <CardContent>
-            <Button onClick={() => window.location.href = '/dashboard'}>
+            <Button onClick={() => window.location.href = '/dashboard'} className="w-full">
               Go to Main Dashboard
             </Button>
           </CardContent>
